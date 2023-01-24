@@ -1,18 +1,23 @@
-import React, { useState } from "react";
-import Timer from "../Timer/Timer";
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom/client';
+import Timer from '../Timer/Timer';
 
 function Page() {
-
-    const [showTimer, setShowTimer] = useState(true);
+    const [showTimer, setShowTimer] = useState(false);
 
     const handleClick = () => setShowTimer(!showTimer);
-
     return (
-        <div>
-            <button onClick={() => handleClick()}>{showTimer ? 'Hide Timer' : 'Show Timer'}</button>
-            {showTimer ? <Timer /> : ""}
-        </div>
+        <>
+            <button onClick={() => handleClick()}>{showTimer ? 'Hide timer' : 'Show timer'}</button>
+            {showTimer && <Timer initialState={60} />}
+        </>
     );
 }
 
-export default Page;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
+    <React.StrictMode>
+        <Page />
+    </React.StrictMode>
+);

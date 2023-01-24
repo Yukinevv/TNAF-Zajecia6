@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import { useEffect, useState } from 'react';
 
-function Timer() {
+function Timer({ initialState }) {
+    const [counter, setCounter] = useState(initialState);
 
-    const [timer, setTimer] = useState[60];
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCounter(prevState => prevState > 0 ? prevState - 1 : 0);
+            console.log('cyk');
+        }, 1000);
 
-    const timerInterval = setInterval(() => setTimer(t => t = - 1), 1000);
+        return () => {
+            clearInterval(interval);
+            console.log('unmount');
+        };
+    }, []);
 
-    window.onbeforeunload = () => {
-        clearInterval(timerInterval);
-    }
-
-    return (
-        <p>Counting: {timer}</p>
-    );
+    return <div>Counting: {counter !== 0 ? counter : "Koniec odliczania"}</div>;
 }
 
 export default Timer;
